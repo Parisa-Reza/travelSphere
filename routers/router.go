@@ -2,9 +2,14 @@ package routers
 
 import (
 	"travelSphere/controllers"
-	beego "github.com/beego/beego/v2/server/web"
+	"travelSphere/controllers/api"
+	"github.com/beego/beego/v2/server/web"
 )
 
-func init() {
-    beego.Router("/", &controllers.MainController{})
+func Init() {
+	// Home page route
+	web.Router("/", &controllers.HomeController{})
+
+	// API Endpoint for Country Search
+	web.Router("/api/countries", &api.CountryAPIController{})
 }
