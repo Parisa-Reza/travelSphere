@@ -1,20 +1,30 @@
 package models
 
 type CountryInfo struct {
-	Flags     FlagData            `json:"flags"`
-	Name      NameData            `json:"name"`
-	Languages map[string]string   `json:"languages"`
-	Capital   []string            `json:"capital"`
-	Region    string              `json:"region"`
-}
+	Name       NameData                  `json:"name"`
+	Capital    []string                  `json:"capital"`
+	Region     string                    `json:"region"`
+	Languages  map[string]string         `json:"languages"`
+	Currencies map[string]CurrencyDetail `json:"currencies"`
+	Flags      FlagData                  `json:"flags"`
 
-type FlagData struct {
-	Png string `json:"png"`
-	Svg string `json:"svg"`
-	Alt string `json:"alt"`
+	DisplayCapital    string `json:"DisplayCapital"`
+	DisplayLanguages  string `json:"DisplayLanguages"`
+	DisplayCurrencies string `json:"DisplayCurrencies"`
+	Slug              string `json:"Slug"`
 }
 
 type NameData struct {
 	Common   string `json:"common"`
 	Official string `json:"official"`
+}
+
+type CurrencyDetail struct {
+	Name   string `json:"name"`
+	Symbol string `json:"symbol"`
+}
+
+type FlagData struct {
+	Png string `json:"png"`
+	Svg string `json:"svg"`
 }

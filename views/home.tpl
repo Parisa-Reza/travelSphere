@@ -23,7 +23,7 @@
             </div>
             <div class="card-details">
                 <h3>{{.Name.Common}}</h3>
-                <p>{{range .Capital}}{{.}}{{end}} — {{.Region}}</p>
+                <p>{{range .Capital}}{{.}}{{end}} , {{.Region}}</p>
             </div>
         </div>
         {{end}}
