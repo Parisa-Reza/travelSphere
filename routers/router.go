@@ -8,12 +8,15 @@ import (
 )
 
 func Init() {
-	// Home page route
+	// Home page route (ssr)
 	web.Router("/", &controllers.HomeController{})
 
-	// Countries page route
+	// Countries page route (ssr)
 	web.Router("/countries", &controllers.CountriesController{})
 
-	// API Endpoint for Country Search
+	//  Single Country Detail Page (ssr)
+	web.Router("/countries/:slug", &controllers.CountryDetailController{})
+
+	// API Endpoint for Country Search (json api)
 	web.Router("/api/countries", &api.CountryAPIController{})
 }

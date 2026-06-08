@@ -16,7 +16,7 @@ func (s *CountryService) SearchCountries(searchQuery string) ([]map[string]strin
 	searchQuery = strings.ToLower(strings.TrimSpace(searchQuery))
 
 	client := &http.Client{Timeout: 5 * time.Second}
-	resp, err := client.Get("https://restcountries.com/v3.1/all?fields=name,capital,flags,languages,currencies,region")
+	resp, err := client.Get("https://restcountries.com/v3.1/all?fields=name,capital")
 
 	if err != nil {
 		return nil, err
@@ -32,37 +32,37 @@ func (s *CountryService) SearchCountries(searchQuery string) ([]map[string]strin
 
 	for _, entry := range dataset {
 
-	capitalCity := "N/A"
-	if len(entry.Capital) > 0 {
-		capitalCity = entry.Capital[0]
+		capitalCity := "N/A"
+		if len(entry.Capital) > 0 {
+			capitalCity = entry.Capital[0]
+		}
+
+		name := strings.ToLower(entry.Name.Common)
+		capital := strings.ToLower(capitalCity)
+
+		// match either country or capital
+		if searchQuery != "" &&
+			!strings.HasPrefix(name, searchQuery) &&
+			!strings.HasPrefix(capital, searchQuery) {
+			continue
+		}
+
+		matches = append(matches, map[string]string{
+			"label": entry.Name.Common + ", " + capitalCity,
+			"slug":  name,
+		})
+
+		if len(matches) >= 8 {
+			break
+		}
 	}
-
-	name := strings.ToLower(entry.Name.Common)
-	capital := strings.ToLower(capitalCity)
-
-	// match either country or capital
-	if searchQuery != "" &&
-		!strings.HasPrefix(name, searchQuery) &&
-		!strings.HasPrefix(capital, searchQuery) {
-		continue
-	}
-
-
-	matches = append(matches, map[string]string{
-		"label": entry.Name.Common + ", " + capitalCity,
-		"slug":  name,
-	})
-
-	if len(matches) >= 8 {
-		break
-	}
-}
 
 	if matches == nil {
 		matches = []map[string]string{}
 	}
 	return matches, nil
 }
+
 // GetFilteredCountries returns full country data for the countries page with optional filtering
 func (s *CountryService) GetFilteredCountries(search, region string) ([]models.CountryInfo, error) {
 	client := &http.Client{Timeout: 6 * time.Second}
@@ -83,7 +83,7 @@ func (s *CountryService) GetFilteredCountries(search, region string) ([]models.C
 	regionClean := strings.ToLower(strings.TrimSpace(region))
 
 	for i := range allCountries {
-		
+
 		// if capital has multiple entries by taking the first one or if missing marking as "N/A"
 		if len(allCountries[i].Capital) > 0 {
 			allCountries[i].DisplayCapital = allCountries[i].Capital[0]
@@ -125,7 +125,7 @@ func (s *CountryService) GetFilteredCountries(search, region string) ([]models.C
 			continue
 		}
 
-		// if search query is applied and it does not match the country's name or capital, skip it
+		// if search query is applied and it does not match the country's name or capital, we eill skip it
 		if searchClean != "" {
 			nameMatch := strings.Contains(strings.ToLower(allCountries[i].Name.Common), searchClean)
 			capitalMatch := strings.Contains(strings.ToLower(allCountries[i].DisplayCapital), searchClean)
