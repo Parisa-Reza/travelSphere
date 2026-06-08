@@ -2,12 +2,11 @@ package controllers
 
 import (
 	"travelSphere/services"
-
-	"github.com/beego/beego/v2/server/web"
+	// "github.com/beego/beego/v2/server/web"
 )
 
 type CountryDetailController struct {
-	web.Controller
+	BaseController
 }
 
 func (c *CountryDetailController) Get() {

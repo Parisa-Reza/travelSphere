@@ -22,4 +22,9 @@ func Init() {
 
 	// Error handling route
 	web.ErrorController(&controllers.ErrorController{})
+
+	// Simple Auth Handlers
+	web.Router("/login", &controllers.AuthController{}, "post:LoginPost")
+	web.Router("/logout", &controllers.AuthController{}, "get:Logout")
+
 }

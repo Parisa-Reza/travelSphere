@@ -1,15 +1,14 @@
 package controllers
 
 import (
-	"travelSphere/models"
 	"encoding/json"
 	"net/http"
 	"time"
-	"github.com/beego/beego/v2/server/web"
+	"travelSphere/models"
 )
 
 type HomeController struct {
-	web.Controller
+	BaseController
 }
 
 // for ssr rendering of homepage
@@ -20,10 +19,10 @@ func (c *HomeController) Get() {
 	c.TplName = "home.tpl"
 
 	//  Query the RestCountries API dynamically
-	
+
 	client := &http.Client{Timeout: 5 * time.Second}
 	resp, err := client.Get("https://restcountries.com/v3.1/all?fields=name,capital,flags")
-	
+
 	var featuredList []models.CountryInfo
 
 	if err == nil && resp.StatusCode == http.StatusOK {
@@ -34,7 +33,7 @@ func (c *HomeController) Get() {
 			// Loop through the API response dynamically and capture the first 8 countries into a slice
 			for _, country := range allCountries {
 				featuredList = append(featuredList, country)
-				
+
 				// Break the loop exactly when we reach 8 entries
 				if len(featuredList) == 8 {
 					break
