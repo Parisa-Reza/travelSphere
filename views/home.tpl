@@ -6,7 +6,7 @@
         <div class="search-module">
             <label for="country-search-input">WHERE TO NEXT?</label>
             <div class="input-wrapper">
-                <input type="text" id="country-search-input" placeholder="e.g. Bangladesh" autocomplete="off">
+                <input type="text" id="country-search-input" placeholder="e.g. dhaka or Argentina" autocomplete="off">
                 <div id="autocomplete-results-box" class="autocomplete-dropdown hidden"></div>
             </div>
         </div>

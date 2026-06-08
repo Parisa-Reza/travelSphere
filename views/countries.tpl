@@ -35,6 +35,7 @@
                         <h3 style="margin: 0 0 16px 0; font-size: 20px; font-weight: 700; color: #0f172a;">{{.Name.Common}}</h3>
                         <p style="font-size: 14px; margin: 6px 0; color: #475569;"><strong style="color: #64748b; font-weight: 500; display: inline-block; width: 85px;">Capital:</strong> {{.DisplayCapital}}</p>
                         <p style="font-size: 14px; margin: 6px 0; color: #475569;"><strong style="color: #64748b; font-weight: 500; display: inline-block; width: 85px;">Currency:</strong> {{.DisplayCurrencies}}</p>
+                        <p style="font-size: 14px; margin: 6px 0; color: #475569;"><strong style="color: #64748b; font-weight: 500; display: inline-block; width: 85px;">Population:</strong> {{.Population}}</p>
                         <p style="font-size: 14px; margin: 6px 0; color: #475569;"><strong style="color: #64748b; font-weight: 500; display: inline-block; width: 85px;">Languages:</strong> {{.DisplayLanguages}}</p>
                     </div>
                 </div>

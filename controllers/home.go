@@ -22,7 +22,7 @@ func (c *HomeController) Get() {
 	//  Query the RestCountries API dynamically
 	
 	client := &http.Client{Timeout: 5 * time.Second}
-	resp, err := client.Get("https://restcountries.com/v3.1/all?fields=name,capital,flags,languages,currency,region")
+	resp, err := client.Get("https://restcountries.com/v3.1/all?fields=name,capital,flags")
 	
 	var featuredList []models.CountryInfo
 

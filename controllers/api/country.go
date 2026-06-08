@@ -10,8 +10,10 @@ type CountryAPIController struct {
 	web.Controller
 }
 
+// for both homepage search suggestions and countries page filtering 
+
 func (c *CountryAPIController) Get() {
-	// Check if this request is from the countries page (has region param) or autocomplete (no region param)
+	// Check if the "region" query parameter is present to determine the type of request
 	_, hasRegionParam := c.Ctx.Request.URL.Query()["region"]
 
 	if hasRegionParam {
@@ -31,7 +33,7 @@ func (c *CountryAPIController) Get() {
 		c.Data["json"] = countries
 		c.ServeJSON()
 	} else {
-		// Request from autocomplete - return simplified data
+		// Request from homepage
 		searchQuery := c.GetString("search")
 
 		svc := &services.CountryService{}

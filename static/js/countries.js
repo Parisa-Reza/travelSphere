@@ -5,16 +5,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function fetchUpdatedGrid() {
         resultsContainer.innerHTML = `<div style="grid-column: 1/-1; color: #64748b; text-align: center; padding: 48px; font-size: 16px;">Loading matched travel targets...</div>`;
-        
+
         const search = encodeURIComponent(searchInput.value.trim());
         const region = encodeURIComponent(regionFilter.value);
 
         try {
             const response = await fetch(`/api/countries?search=${search}&region=${region}`);
             if (!response.ok) throw new Error("API State Error");
-            
+
             const list = await response.json();
-            
+
             if (!list || list.length === 0) {
                 resultsContainer.innerHTML = `<div style="grid-column: 1/-1; color: #64748b; text-align: center; padding: 48px; font-size: 16px;">No countries matched the active criteria.</div>`;
                 return;
@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             <h3 style="margin: 0 0 16px 0; font-size: 20px; font-weight: 700; color: #0f172a;">${c.name.common}</h3>
                             <p style="font-size: 14px; margin: 6px 0; color: #475569;"><strong style="color: #64748b; font-weight: 500; display: inline-block; width: 85px;">Capital:</strong> ${c.DisplayCapital}</p>
                             <p style="font-size: 14px; margin: 6px 0; color: #475569;"><strong style="color: #64748b; font-weight: 500; display: inline-block; width: 85px;">Currency:</strong> ${c.DisplayCurrencies}</p>
+                            <p style="font-size: 14px; margin: 6px 0; color: #475569;"><strong style="color: #64748b; font-weight: 500; display: inline-block; width: 85px;">Population:</strong> ${c.Population}</p>
                             <p style="font-size: 14px; margin: 6px 0; color: #475569;"><strong style="color: #64748b; font-weight: 500; display: inline-block; width: 85px;">Languages:</strong> ${c.DisplayLanguages}</p>
                         </div>
                     </div>

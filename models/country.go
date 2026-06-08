@@ -4,6 +4,7 @@ type CountryInfo struct {
 	Name       NameData                  `json:"name"`
 	Capital    []string                  `json:"capital"`
 	Region     string                    `json:"region"`
+	Population int    					 `json:"population"`
 	Languages  map[string]string         `json:"languages"`
 	Currencies map[string]CurrencyDetail `json:"currencies"`
 	Flags      FlagData                  `json:"flags"`
