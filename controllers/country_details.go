@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"travelSphere/services"
+
 	"github.com/beego/beego/v2/server/web"
 )
 
@@ -18,9 +19,14 @@ func (c *CountryDetailController) Get() {
 
 	detail, err := svc.FindBySlug(slug)
 	if err != nil {
-		c.Ctx.Output.SetStatus(404)
+
+		// forcing Beego to stop rendering 'destination.tpl' and jump directly to  ErrorController's Error404 handler
+
+		c.Abort("404")
 		return
 	}
 
+	c.Layout = "layout.tpl"
+	c.TplName = "countryInfo.tpl"
 	c.Data["Country"] = detail
 }

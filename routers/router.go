@@ -19,4 +19,7 @@ func Init() {
 
 	// API Endpoint for Country Search (json api)
 	web.Router("/api/countries", &api.CountryAPIController{})
+
+	// Error handling route
+	web.ErrorController(&controllers.ErrorController{})
 }
