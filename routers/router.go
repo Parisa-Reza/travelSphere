@@ -42,4 +42,8 @@ func Init() {
 	web.InsertFilter("/api/wishlist", web.BeforeRouter, middlewares.AuthCheckFilter)
 	web.InsertFilter("/api/wishlist/*", web.BeforeRouter, middlewares.AuthCheckFilter)
 
+	// protecte dashboard route
+	web.Router("/dashboard", &controllers.DashboardController{})
+	web.InsertFilter("/dashboard", web.BeforeRouter, middlewares.AuthCheckFilter)
+
 }
