@@ -3,6 +3,7 @@ package routers
 import (
 	"travelSphere/controllers"
 	"travelSphere/controllers/api"
+	"travelSphere/middlewares"
 
 	"github.com/beego/beego/v2/server/web"
 )
@@ -26,5 +27,19 @@ func Init() {
 	// Simple Auth Handlers
 	web.Router("/login", &controllers.AuthController{}, "post:LoginPost")
 	web.Router("/logout", &controllers.AuthController{}, "get:Logout")
+
+	// Enable reading Raw request body parameters for JSON APIs
+	web.BConfig.CopyRequestBody = true
+
+	// whishlist page route
+	web.Router("/wishlist", &controllers.WishlistController{})
+
+	// Wishlist APis
+	web.Router("/api/wishlist", &controllers.WishlistController{}, "get:GetAPI;post:PostAPI")
+	web.Router("/api/wishlist/:id", &controllers.WishlistController{}, "put:PutAPI;delete:DeleteAPI")
+
+	web.InsertFilter("/wishlist", web.BeforeRouter, middlewares.AuthCheckFilter)
+	web.InsertFilter("/api/wishlist", web.BeforeRouter, middlewares.AuthCheckFilter)
+	web.InsertFilter("/api/wishlist/*", web.BeforeRouter, middlewares.AuthCheckFilter)
 
 }
