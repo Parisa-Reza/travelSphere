@@ -1,18 +1,19 @@
 package controllers
 
 import (
-	"travelSphere/models"
-	"travelSphere/services"
 	"encoding/json"
+	"fmt"
+	"log"
 	"net/http"
 	"time"
+	"travelSphere/models"
+	"travelSphere/services"
+
 	"github.com/beego/beego/v2/server/web"
-	"log"
-	"fmt"
 )
 
 type HomeController struct {
-	web.Controller
+	BaseController
 }
 
 // for ssr rendering of homepage
@@ -23,15 +24,15 @@ func (c *HomeController) Get() {
 	c.TplName = "home.tpl"
 
 	//  Query the RestCountries API dynamically
-	
+
 	client := &http.Client{Timeout: 5 * time.Second}
 
-baseUrl, err := web.AppConfig.String("restcountriesurl")
+	baseUrl, err := web.AppConfig.String("restcountriesurl")
 
-apiUrl := fmt.Sprintf("%s/all?fields=name,capital,flags", baseUrl)
+	apiUrl := fmt.Sprintf("%s/all?fields=name,capital,flags", baseUrl)
 
-resp, err := client.Get(apiUrl)
-	
+	resp, err := client.Get(apiUrl)
+
 	var featuredList []models.CountryInfo
 
 	if err == nil && resp.StatusCode == http.StatusOK {
@@ -42,7 +43,7 @@ resp, err := client.Get(apiUrl)
 			// Loop through the API response dynamically and capture the first 8 countries into a slice
 			for _, country := range allCountries {
 				featuredList = append(featuredList, country)
-				
+
 				// Break the loop exactly when we reach 8 entries
 				if len(featuredList) == 8 {
 					break
@@ -58,8 +59,6 @@ resp, err := client.Get(apiUrl)
 
 	c.Data["FeaturedCountries"] = featuredList
 
-
-	
 	countrySvc := &services.CountryService{}
 	featuredCountries, err := countrySvc.GetFilteredCountries("", "")
 	if err == nil && len(featuredCountries) > 6 {
@@ -68,7 +67,6 @@ resp, err := client.Get(apiUrl)
 		c.Data["FeaturedCountries"] = featuredCountries
 	}
 
-	
 	attractionSvc := &services.AttractionService{}
 	popularAttractions, err := attractionSvc.GetPopularAttractions()
 	if err != nil {

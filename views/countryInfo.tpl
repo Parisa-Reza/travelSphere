@@ -9,7 +9,7 @@
             <div style="display: inline-block; background-color: #e0e7ff; color: #4338ca; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;">
                 {{if .Country.Region}}{{.Country.Region}}{{else}}GLOBAL{{end}}
             </div>
-            <h1 style="font-size: 38px; font-weight: 800; color: #0f172a; margin: 0 0 4px 0;">{{.Country.Name.Common}}</h1>
+          <h1 id="country-name" style="font-size: 38px; font-weight: 800; color: #0f172a; margin: 0 0 4px 0;">{{.Country.Name.Common}}</h1>
             <p style="color: #64748b; margin: 0 0 28px 0; font-size: 15px;">{{.Country.Name.Official}}</p>
             
             <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; border-top: 1px solid #f1f5f9; padding-top: 24px;">
@@ -40,3 +40,4 @@
         <div id="wishlist-feedback" style="font-size: 14px; font-weight: 500; color: #64748b;"></div>
     </div>
 </div>
+<script src="/static/js/wishlist.js"></script>

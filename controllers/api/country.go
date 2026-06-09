@@ -10,7 +10,7 @@ type CountryAPIController struct {
 	web.Controller
 }
 
-// for both homepage search suggestions and countries page filtering 
+// for both homepage search suggestions and countries page filtering
 
 func (c *CountryAPIController) Get() {
 	// Check if the "region" query parameter is present to determine the type of request
