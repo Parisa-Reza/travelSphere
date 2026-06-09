@@ -3,21 +3,24 @@
  A full-stack travel destination discovery and trip planner built with the **Beego Framework (Go)**. Explore countries, discover attractions, and manage your personal travel wishlist 
 
 ---
+## Quick Preview 
+> Screenshots of the running app.
+<img width="1920" height="1080" alt="Screenshot from 2026-06-09 13-57-53" src="https://github.com/user-attachments/assets/fb953d1d-1979-40cc-b6c4-9b4208c0547b" />
+<img width="1920" height="1080" alt="Screenshot from 2026-06-09 13-58-03" src="https://github.com/user-attachments/assets/3406457a-cb23-4e35-bc4a-94e3cad2447b" />
+<img width="1920" height="1080" alt="Screenshot from 2026-06-09 13-58-30" src="https://github.com/user-attachments/assets/9ee2eba1-d2cf-44a0-b99b-18be0b431192" />
+<img width="1920" height="1080" alt="Screenshot from 2026-06-09 13-58-48" src="https://github.com/user-attachments/assets/a5ffe268-0d89-4657-bf9c-67cd0f438866" />
+<img width="1920" height="1080" alt="Screenshot from 2026-06-09 13-59-27" src="https://github.com/user-attachments/assets/bac77e34-1bc0-4a9b-9f15-e1f8e3dfc310" />
+<img width="1920" height="1080" alt="Screenshot from 2026-06-09 13-59-02" src="https://github.com/user-attachments/assets/6a50b132-67b8-45d2-a1b3-723c47230e4a" />
+<img width="1920" height="1080" alt="Screenshot from 2026-06-09 14-00-32" src="https://github.com/user-attachments/assets/a0cbd3f0-f1d4-4a31-a0fe-78158703fe7a" />
+<img width="1920" height="1080" alt="Screenshot from 2026-06-09 14-00-03" src="https://github.com/user-attachments/assets/4b3000d8-4459-4274-8154-91c1f2b19e51" />
 
-##  Table of Contents
+<img width="1920" height="1080" alt="Screenshot from 2026-06-09 14-01-00" src="https://github.com/user-attachments/assets/99e61be3-9a1b-49d9-ac39-1703b68fc438" />
+<img width="1920" height="1080" alt="Screenshot from 2026-06-09 14-01-38" src="https://github.com/user-attachments/assets/8f6cb374-83bc-4de1-95d6-e062bcfe391c" />
+<img width="1920" height="1080" alt="Screenshot from 2026-06-09 14-04-02" src="https://github.com/user-attachments/assets/1f72e106-6c38-40fb-a325-3885f54d4a6a" />
+<img width="1920" height="1080" alt="Screenshot from 2026-06-09 14-04-42" src="https://github.com/user-attachments/assets/3d634f45-f9a3-4124-8165-904ce8fe2773" />
+<img width="1920" height="1080" alt="Screenshot from 2026-06-09 14-05-20" src="https://github.com/user-attachments/assets/3e4dfb4b-7d42-4074-a38a-071506e7de7f" />
+<img width="1920" height="1080" alt="Screenshot from 2026-06-09 14-09-42" src="https://github.com/user-attachments/assets/60d693fe-6c09-483f-be45-bf6752e6ce5a" />
 
-- [Project Overview](#-project-overview)
-- [Tech Stack](#-tech-stack)
-- [Features](#-features)
-- [Project Structure](#-project-structure)
-- [Wishlist Storage — In-Memory](#-wishlist-storage--in-memory)
-- [Getting Started](#-getting-started)
-- [Environment Variables](#-environment-variables)
-- [Running the App](#-running-the-app)
-- [Running Tests](#-running-tests)
-- [API Routes Reference](#-api-routes-reference)
-- [Country Slug Format](#-country-slug-format)
-- [Screenshots](#-screenshots)
 
 ---
 
@@ -135,9 +138,14 @@ go mod tidy
 ### 3. Set up environment variables
 
 ```bash
-cp .env.example .env
+touch .env
 ```
+configure with 
 
+```
+OPENTRIPMAP_KEY= your api key
+RUN_MODE=dev
+```
 ```bash
 cp conf/app.conf.example conf/app.conf
 ```
@@ -208,15 +216,11 @@ go test -coverprofile=total_coverage.out ./... && go tool cover -func=total_cove
 | `POST` | `/api/wishlist` | Create a wishlist entry |
 | `PUT` | `/api/wishlist/:id` | Update note or status |
 | `DELETE` | `/api/wishlist/:id` | Delete a wishlist entry |
-counts |
 
 
 
 ---
 
-##  Screenshots
-
-> Screenshots of the running app.
 
 ##  Future improvement
 
