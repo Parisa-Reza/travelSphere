@@ -7,16 +7,24 @@ import (
 	"strings"
 	"time"
 	"travelSphere/models"
+	"github.com/beego/beego/v2/server/web"
 )
 
 type CountryService struct{}
 
 // SearchCountries returns country data for autocomplete/search results in homepage search bar
 func (s *CountryService) SearchCountries(searchQuery string) ([]map[string]string, error) {
-	searchQuery = strings.ToLower(strings.TrimSpace(searchQuery))
+	
+searchQuery = strings.ToLower(strings.TrimSpace(searchQuery))
 
-	client := &http.Client{Timeout: 5 * time.Second}
-	resp, err := client.Get("https://restcountries.com/v3.1/all?fields=name,capital")
+client := &http.Client{Timeout: 5 * time.Second}
+	
+baseUrl, err := web.AppConfig.String("restcountriesurl")
+
+apiUrl := fmt.Sprintf("%s/all?fields=name,capital", baseUrl)
+
+resp, err := client.Get(apiUrl)
+	
 
 	if err != nil {
 		return nil, err
@@ -66,7 +74,15 @@ func (s *CountryService) SearchCountries(searchQuery string) ([]map[string]strin
 // GetFilteredCountries returns full country data for the countries page with optional filtering
 func (s *CountryService) GetFilteredCountries(search, region string) ([]models.CountryInfo, error) {
 	client := &http.Client{Timeout: 6 * time.Second}
-	resp, err := client.Get("https://restcountries.com/v3.1/all?fields=name,capital,flags,languages,currencies,region,population")
+	
+
+	
+baseUrl, err := web.AppConfig.String("restcountriesurl")
+
+apiUrl := fmt.Sprintf("%s/all?fields=name,capital,flags,languages,currencies,region,population", baseUrl)
+
+resp, err := client.Get(apiUrl)
+
 
 	if err != nil {
 		return nil, err

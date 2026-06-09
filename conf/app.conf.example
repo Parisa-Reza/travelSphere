@@ -1,0 +1,12 @@
+appname = TravelSphere
+httpport = 8080
+runmode = dev
+autorender = true
+ErrorsShow = true
+
+# External API Third-Party Base URLs
+restcountriesurl = https://restcountries.com/v3.1
+opentripmapurl = https://api.opentripmap.com/0.1/en/places
+
+# Third-Party API Configuration Keys
+opentripmapkey = ''

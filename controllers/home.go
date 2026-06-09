@@ -2,10 +2,13 @@ package controllers
 
 import (
 	"travelSphere/models"
+	"travelSphere/services"
 	"encoding/json"
 	"net/http"
 	"time"
 	"github.com/beego/beego/v2/server/web"
+	"log"
+	"fmt"
 )
 
 type HomeController struct {
@@ -22,7 +25,12 @@ func (c *HomeController) Get() {
 	//  Query the RestCountries API dynamically
 	
 	client := &http.Client{Timeout: 5 * time.Second}
-	resp, err := client.Get("https://restcountries.com/v3.1/all?fields=name,capital,flags")
+
+baseUrl, err := web.AppConfig.String("restcountriesurl")
+
+apiUrl := fmt.Sprintf("%s/all?fields=name,capital,flags", baseUrl)
+
+resp, err := client.Get(apiUrl)
 	
 	var featuredList []models.CountryInfo
 
@@ -49,5 +57,25 @@ func (c *HomeController) Get() {
 	}
 
 	c.Data["FeaturedCountries"] = featuredList
+
+
+	
+	countrySvc := &services.CountryService{}
+	featuredCountries, err := countrySvc.GetFilteredCountries("", "")
+	if err == nil && len(featuredCountries) > 6 {
+		c.Data["FeaturedCountries"] = featuredCountries[:6]
+	} else {
+		c.Data["FeaturedCountries"] = featuredCountries
+	}
+
+	
+	attractionSvc := &services.AttractionService{}
+	popularAttractions, err := attractionSvc.GetPopularAttractions()
+	if err != nil {
+		log.Printf("[Home Error] Failed to retrieve external attractions data: %v", err)
+		c.Data["PopularAttractions"] = nil
+	} else {
+		c.Data["PopularAttractions"] = popularAttractions
+	}
 
 }
