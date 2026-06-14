@@ -5,7 +5,7 @@
 ---
 ## Quick Preview 
 > Screenshots of the running app.
-<img width="1920" height="1080" alt="Screenshot from 2026-06-09 13-57-53" src="https://github.com/user-attachments/assets/fb953d1d-1979-40cc-b6c4-9b4208c0547b" />
+<img width="1366" height="768" alt="Screenshot (1775)" src="https://github.com/user-attachments/assets/b34f3916-4424-40b4-b7cd-08285ae93df1" />
 <img width="1920" height="1080" alt="Screenshot from 2026-06-09 13-58-03" src="https://github.com/user-attachments/assets/3406457a-cb23-4e35-bc4a-94e3cad2447b" />
 <img width="1920" height="1080" alt="Screenshot from 2026-06-09 13-58-30" src="https://github.com/user-attachments/assets/9ee2eba1-d2cf-44a0-b99b-18be0b431192" />
 <img width="1920" height="1080" alt="Screenshot from 2026-06-09 13-58-48" src="https://github.com/user-attachments/assets/a5ffe268-0d89-4657-bf9c-67cd0f438866" />
@@ -46,7 +46,7 @@ The app uses **Server-Side Rendering (SSR)** for navigable pages and **AJAX part
 | Live Reload (Dev) | [Bee Tool](https://github.com/beego/bee) |
 | Templating | Beego `.tpl` templates (SSR) |
 | Frontend | Vanilla JavaScript + Fetch API (AJAX) |
-| Countries API | [REST Countries v3.1](https://restcountries.com/) |
+| Countries API | [REST Countries v5](https://restcountries.com/) |
 | Attractions API | [OpenTripMap](https://dev.opentripmap.org/) |
 | Wishlist Storage | In-memory Go map (no database) |
 | Testing | Testify |
@@ -140,16 +140,17 @@ go mod tidy
 ```bash
 touch .env
 ```
-configure with 
+configure .env file with 
 
 ```
 OPENTRIPMAP_KEY= your api key
+RESTCOUNTRIES_KEY =  your api key
 RUN_MODE=dev
 ```
 ```bash
 cp conf/app.conf.example conf/app.conf
 ```
-
+configure .app.conf file with your keys
 ---
 
 
