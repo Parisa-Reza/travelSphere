@@ -151,7 +151,6 @@ RUN_MODE=dev
 cp conf/app.conf.example conf/app.conf
 ```
 configure .app.conf file with your keys
----
 
 
 
