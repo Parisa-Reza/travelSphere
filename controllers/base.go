@@ -8,18 +8,6 @@ type BaseController struct {
 	web.Controller
 }
 
-// // Prepare runs automatically before the specific GET/POST method executes
-// func (c *BaseController) Prepare() {
-// 	// Check if a username exists in the active session
-// 	username := c.GetSession("username")
-
-// 	if username != nil {
-// 		c.Data["IsLoggedIn"] = true
-// 		c.Data["CurrentUserName"] = username.(string)
-// 	} else {
-// 		c.Data["IsLoggedIn"] = false
-// 	}
-// }
 
 func (c *BaseController) Prepare() {
 	username := c.GetSession("username")

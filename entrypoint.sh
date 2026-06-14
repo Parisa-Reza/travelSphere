@@ -12,10 +12,11 @@ sessionon = true
 sessionname = travelspheresession
 
 # External API Third-Party Base URLs
-restcountriesurl = https://restcountries.com/v3.1
+restcountriesurl = https://api.restcountries.com/countries/v5
 opentripmapurl = https://api.opentripmap.com/0.1/en/places
 
 # Third-Party API Configuration Keys
+restcountrieskey = ${RESTCOUNTRIES_KEY}
 opentripmapkey = ${OPENTRIPMAP_KEY}
 EOF
 

@@ -22,11 +22,10 @@ func (c *AuthController) LoginPost() {
 		return
 	}
 
-	// CRITICAL STEP: Bind the unique user ID internally to track protected data scopes
 	c.SetSession("user_id", user.ID)
 	c.SetSession("username", user.Username)
 
-	c.Redirect(c.Ctx.Input.Referer(), 302) // Bounce straight back smoothly to the active page view
+	c.Redirect(c.Ctx.Input.Referer(), 302) //  back  to the active page view
 }
 
 func (c *AuthController) Logout() {
