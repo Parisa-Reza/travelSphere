@@ -1,15 +1,8 @@
 package controllers
 
 import (
-	"encoding/json"
-	"fmt"
 	"log"
-	"net/http"
-	"time"
-	"travelSphere/models"
 	"travelSphere/services"
-
-	"github.com/beego/beego/v2/server/web"
 )
 
 type HomeController struct {
@@ -23,48 +16,15 @@ func (c *HomeController) Get() {
 	c.Layout = "layout.tpl"
 	c.TplName = "home.tpl"
 
-	//  Query the RestCountries API dynamically
-
-	client := &http.Client{Timeout: 5 * time.Second}
-
-	baseUrl, err := web.AppConfig.String("restcountriesurl")
-
-	apiUrl := fmt.Sprintf("%s/all?fields=name,capital,flags", baseUrl)
-
-	resp, err := client.Get(apiUrl)
-
-	var featuredList []models.CountryInfo
-
-	if err == nil && resp.StatusCode == http.StatusOK {
-		defer resp.Body.Close()
-
-		var allCountries []models.CountryInfo
-		if json.NewDecoder(resp.Body).Decode(&allCountries) == nil {
-			// Loop through the API response dynamically and capture the first 8 countries into a slice
-			for _, country := range allCountries {
-				featuredList = append(featuredList, country)
-
-				// Break the loop exactly when we reach 8 entries
-				if len(featuredList) == 8 {
-					break
-				}
-			}
-		}
-	}
-
-	// if the external API fails, bind an empty slice to keep the page rendering safely
-	if len(featuredList) == 0 {
-		featuredList = []models.CountryInfo{}
-	}
-
-	c.Data["FeaturedCountries"] = featuredList
-
 	countrySvc := &services.CountryService{}
 	featuredCountries, err := countrySvc.GetFilteredCountries("", "")
-	if err == nil && len(featuredCountries) > 6 {
-		c.Data["FeaturedCountries"] = featuredCountries[:6]
-	} else {
+	if err == nil && len(featuredCountries) > 8 {
+		c.Data["FeaturedCountries"] = featuredCountries[:8]
+	} else if err == nil {
 		c.Data["FeaturedCountries"] = featuredCountries
+	} else {
+		log.Printf("[ Failed to retrieve external country data: %v", err)
+		c.Data["FeaturedCountries"] = nil
 	}
 
 	attractionSvc := &services.AttractionService{}
